@@ -1,0 +1,24 @@
+compile:
+./mvnw clean package
+./mvnw clean package -DskipTests
+
+run:
+./mvnw spring-boot:run
+
+flyway:
+./mvnw `
+  "-Dflyway.url=jdbc:postgresql://localhost:5432/shirtcollector" `
+  "-Dflyway.user=shirtcollector" `
+  "-Dflyway.password=shirtcollector" `
+  "-Dflyway.locations=classpath:db/migration" `
+  flyway:migrate
+
+docker:
+docker compose down -v
+docker compose up -d
+
+verify tables:
+docker exec -it shirtcollector-db psql -U shirtcollector -d shirtcollector -c "\dt"
+
+
+shirtcollector
