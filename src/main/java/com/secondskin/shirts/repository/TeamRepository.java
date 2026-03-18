@@ -10,7 +10,7 @@ import com.secondskin.shirts.domain.Team;
 import com.secondskin.shirts.domain.TeamType;
 
 public interface TeamRepository extends JpaRepository<Team, UUID> {
-    Optional<Team> findByAlias(String alias);
+    Optional<Team> findByAliasIgnoreCase(String alias);
     
     boolean existsByAlias(String alias);
 

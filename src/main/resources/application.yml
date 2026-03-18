@@ -5,9 +5,9 @@ spring:
   application:
     name: shirt-collector-api
   datasource:
-    url: jdbc:postgresql://localhost:5432/shirtcollector
-    username: shirtcollector
-    password: shirtcollector
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/shirtcollector}
+    username: ${DB_USERNAME:shirtcollector}
+    password: ${DB_PASSWORD:shirtcollector}
   jpa:
     hibernate:
       ddl-auto: validate

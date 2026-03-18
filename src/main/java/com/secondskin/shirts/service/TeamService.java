@@ -1,6 +1,8 @@
 package com.secondskin.shirts.service;
 
 import com.secondskin.shirts.api.dto.CreateTeamRequest;
+import com.secondskin.shirts.api.dto.UpdateTeamRequest;
+import com.secondskin.shirts.api.exceptions.TeamNotFoundException;
 import com.secondskin.shirts.domain.Team;
 import com.secondskin.shirts.domain.TeamType;
 import com.secondskin.shirts.repository.TeamRepository;
@@ -50,6 +52,40 @@ public class TeamService {
         }
 
         return teamRepository.findAll();
+    }
+
+    public Team getByAlias(String alias) {
+        return teamRepository.findByAliasIgnoreCase(alias.trim())
+            .orElseThrow(() -> new TeamNotFoundException(alias));
+    }
+
+    @Transactional
+    public Team updateByAlias(String alias, UpdateTeamRequest req)
+    {
+        Team team = teamRepository.findByAliasIgnoreCase(alias.trim())
+            .orElseThrow(() -> new TeamNotFoundException(alias));
+
+        if(req.teamType() != null) {
+            team.setTeamType(req.teamType());
+        }
+        
+        if (req.fullName() != null) {
+            team.setFullName(req.fullName());
+        }
+        
+        if (req.country() != null) {
+            team.setCountry(req.country());
+        }
+        
+        if (req.city() != null) {
+            team.setCity(req.city());
+        }
+        
+        if (team.getTeamType() == TeamType.NATION) {
+            team.setCity(null);
+        }
+
+        return teamRepository.save(team);
     }
 
     private static String blankToNull(String s) {
