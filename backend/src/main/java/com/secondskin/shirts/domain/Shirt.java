@@ -81,6 +81,14 @@ public class Shirt {
         this.team = team;
     }
 
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
     public ShirtType getType() {
         return type;
     }

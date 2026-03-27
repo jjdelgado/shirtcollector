@@ -24,7 +24,7 @@ const sleeveOptions = [
 ];
 
 const authenticityOptions = [
-  { value: "OFFICIAL_MATCH", label: "Official match" },
+  { value: "OFFICIAL", label: "Official match" },
   { value: "REPLICA", label: "Replica" },
 ];
 
